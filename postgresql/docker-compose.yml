@@ -93,13 +93,15 @@ services:
       - FINERACT_DEFAULT_TENANTDB_NAME=fineract_default
       - FINERACT_DEFAULT_TENANTDB_DESCRIPTION=Default Demo Tenant
       - JAVA_TOOL_OPTIONS="-Xmx1G"
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - LOGGING_LEVEL_ORG_FINETCHEANDO_FINERACT=DEBUG
   mifosx-web-app:
     image: fintecheando/web-app:master
     ports:
       - '4200:80'
     environment:
-      - FINERACT_API_URLS=https://localhost:8443
-      - FINERACT_API_URL=https://localhost:8443
+      - FINERACT_API_URLS=${FINERACT_API_URLS}
+      - FINERACT_API_URL=${FINERACT_API_URL}
       - FINERACT_API_PROVIDER=/fineract-provider/api
       - FINERACT_API_VERSION=/v1
       - FINERACT_PLATFORM_TENANT_IDENTIFIER=default
