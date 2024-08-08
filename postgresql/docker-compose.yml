@@ -106,8 +106,9 @@ services:
       - JAVA_TOOL_OPTIONS="-Xmx1G"
       - LOGGING_LEVEL_ROOT=DEBUG
       - LOGGING_LEVEL_ORG_FINETCHEANDO_FINERACT=DEBUG
-      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=*
-      - ACTUATOR_ENABLED=true
+      - FINERACT_SERVER_SSL_ENABLED=false
+      - FINERACT_SERVER_PORT=8443
+
   mifosx-web-app:
     image: fintecheando/web-app:master
     ports:
