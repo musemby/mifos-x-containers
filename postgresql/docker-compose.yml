@@ -106,6 +106,8 @@ services:
       - JAVA_TOOL_OPTIONS="-Xmx1G"
       - LOGGING_LEVEL_ROOT=DEBUG
       - LOGGING_LEVEL_ORG_FINETCHEANDO_FINERACT=DEBUG
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=*
+      - ACTUATOR_ENABLED=true
   mifosx-web-app:
     image: fintecheando/web-app:master
     ports:
@@ -130,7 +132,6 @@ services:
       - "traefik.http.routers.<mifosx-web-app>.tls.certResolver=letsencrypt"
       - "traefik.http.routers.<mifosx-web-app>.rule=Host(`fintech.raisonlabs.com`)"
       - "traefik.http.services.<mifosx-web-app>.loadbalancer.server.port=4200"
-
 
 networks:
   dokploy-network:
