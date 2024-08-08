@@ -50,6 +50,14 @@ services:
     depends_on:
       fineractpostgresql:
         condition: service_healthy
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.<fineract-server>.entrypoints=websecure"
+      - "traefik.http.routers.<fineract-server>.tls.certResolver=letsencrypt"
+      - "traefik.http.routers.<fineract-server>.rule=Host(`api.fintech.raisonlabs.com`)"
+      - "traefik.http.services.<fineract-server>.loadbalancer.server.port=8443"
     environment:
       # TODO: env vars prefixed with "fineract_tenants_*" will be removed with one of the next releases
       #- fineract_tenants_driver=org.postgresql.Driver
@@ -110,3 +118,15 @@ services:
     depends_on:
       fineract-server:
         condition: service_healthy
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.<mifosx-web-app>.entrypoints=websecure"
+      - "traefik.http.routers.<mifosx-web-app>.tls.certResolver=letsencrypt"
+      - "traefik.http.routers.<mifosx-web-app>.rule=Host(`fintech.raisonlabs.com`)"
+      - "traefik.http.services.<mifosx-web-app>.loadbalancer.server.port=4200"
+
+networks:
+  dokploy-network:
+    external: true
