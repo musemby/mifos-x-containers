@@ -52,12 +52,12 @@ services:
         condition: service_healthy
     networks:
       - dokploy-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.<fineract-server>.entrypoints=websecure"
-      - "traefik.http.routers.<fineract-server>.tls.certResolver=letsencrypt"
-      - "traefik.http.routers.<fineract-server>.rule=Host(`api.fintech.raisonlabs.com`)"
-      - "traefik.http.services.<fineract-server>.loadbalancer.server.port=8443"
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.<fineract-server>.entrypoints=websecure"
+    #   - "traefik.http.routers.<fineract-server>.tls.certResolver=letsencrypt"
+    #   - "traefik.http.routers.<fineract-server>.rule=Host(`api.fintech.raisonlabs.com`)"
+    #   - "traefik.http.services.<fineract-server>.loadbalancer.server.port=8443"
     environment:
       # TODO: env vars prefixed with "fineract_tenants_*" will be removed with one of the next releases
       #- fineract_tenants_driver=org.postgresql.Driver
