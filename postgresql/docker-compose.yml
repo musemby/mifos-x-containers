@@ -36,6 +36,8 @@ services:
       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
       timeout: 10s
       retries: 10
+    networks:
+      - fintech-network
 #Remove comment for exposing the port to the host
 #    ports:
 #      - "5432:5432"
@@ -52,12 +54,13 @@ services:
         condition: service_healthy
     networks:
       - dokploy-network
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.<fineract-server>.entrypoints=websecure"
-    #   - "traefik.http.routers.<fineract-server>.tls.certResolver=letsencrypt"
-    #   - "traefik.http.routers.<fineract-server>.rule=Host(`api.fintech.raisonlabs.com`)"
-    #   - "traefik.http.services.<fineract-server>.loadbalancer.server.port=8443"
+      - fintech-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.<fineract-server>.entrypoints=websecure"
+      - "traefik.http.routers.<fineract-server>.tls.certResolver=letsencrypt"
+      - "traefik.http.routers.<fineract-server>.rule=Host(`api.fintech.raisonlabs.com`)"
+      - "traefik.http.services.<fineract-server>.loadbalancer.server.port=8443"
     environment:
       # TODO: env vars prefixed with "fineract_tenants_*" will be removed with one of the next releases
       #- fineract_tenants_driver=org.postgresql.Driver
@@ -120,6 +123,7 @@ services:
         condition: service_healthy
     networks:
       - dokploy-network
+      - fintech-network
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.<mifosx-web-app>.entrypoints=websecure"
@@ -131,3 +135,4 @@ services:
 networks:
   dokploy-network:
     external: true
+  fintech-network:
