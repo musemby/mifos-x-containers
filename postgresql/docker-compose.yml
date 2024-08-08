@@ -127,6 +127,7 @@ services:
       - "traefik.http.routers.<mifosx-web-app>.rule=Host(`fintech.raisonlabs.com`)"
       - "traefik.http.services.<mifosx-web-app>.loadbalancer.server.port=4200"
 
+
 networks:
   dokploy-network:
     external: true
